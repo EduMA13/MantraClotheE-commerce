@@ -89,7 +89,7 @@ export default function Login({ navigation }) {
      
 
       {/* Pie de página con botón (animación separada) */}
-      <Animated.View className="flex flex-col bg-white rounded-t-[45px] w-full items-center text-center justify-around"
+      <Animated.View className="flex flex-col bg-white rounded-t-[45px] w-full items-center text-center justify-around shadow-md"
         style={[footerStyle, { position: 'absolute', bottom:1 , height:200}]}>
         <Text className="text-black text-2xl font-bold">Ready to buy?</Text>
         <Text className="text-black text-[15px] font-bold text-center">

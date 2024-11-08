@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './app/login/Login';
 import LoginSesion from './app/login/LoginSesion';
 import RegisterSesion from  './app/login/RegisterSesion';
+import LoginSuccess from './app/login/LoginSuccess';
+import MainMenu from './app/store/MainMenu';
 import "./global.css"
 
 const Stack = createStackNavigator();
@@ -61,7 +63,7 @@ function HomeScreen({ navigation }) {
       {/* Animated Button */}
       <Animated.View className="flex justify-center items-center drop-shadow-md" style={buttonStyle}>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <View className="w-72 bg-white rounded-md items-center h-[50px] justify-center">
+          <View className="w-72 bg-white rounded-md items-center h-[50px] justify-center shadow-md">
             <Text className="text-black text-2xl font-bold">Get Started</Text>
           </View>
         </TouchableOpacity>
@@ -80,6 +82,8 @@ export default function App() {
         <Stack.Screen name ="LoginScreen" component={LoginSesion}
         options={{animationEnabled:false}}/>
         <Stack.Screen name="RegisterScreen" component={RegisterSesion}/>
+        <Stack.Screen name ="LoginSuccess" component={LoginSuccess}/>
+        <Stack.Screen name="MainMenu" component={MainMenu}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

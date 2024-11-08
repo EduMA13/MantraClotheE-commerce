@@ -40,6 +40,9 @@ export default function LoginSesion({ navigation }) {
       <View className="items-center flex-1 justify-between">
         {/* Header */}
         <View>
+          <Animated.Text className="text-9xl font-bold text-center" style={[textColorStyle]}>
+            M
+          </Animated.Text>
           <Animated.Text className="text-2xl font-bold text-center" style={[textColorStyle]}>
             Let's start with Sign Up !
           </Animated.Text>
@@ -47,7 +50,7 @@ export default function LoginSesion({ navigation }) {
         </View>
 
         {/*Content*/}
-        <View className="gap-10 bg-white rounded-lg h-[350px] w-[385px] justify-center items-center">
+        <View className="gap-10 bg-white rounded-lg h-[350px] w-[385px] justify-center items-center shadow-md">
           <View className="flex flex-row bg-gray-300 gap-10 rounded-lg w-[350px] h-[50px] justify-around  items-center" >
             <Entypo name="mail" size={20} color="black" />
             <TextInput className="w-[200px]" placeholder='youremail@example.com'></TextInput>
@@ -61,7 +64,7 @@ export default function LoginSesion({ navigation }) {
           <View className=" items-center">
             <TouchableOpacity>
               <View className="bg-blue-500 justify-center items-center rounded-lg w-[300px] h-[50px]">
-                <Text className="text-lg text-center text-white">Sign Up</Text>
+                <Text className="text-lg text-center text-white font-semibold">Sign Up</Text>
               </View>
             </TouchableOpacity>
           </View>
