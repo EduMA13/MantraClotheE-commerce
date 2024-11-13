@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import React, { useEffect } from 'react'
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -8,7 +8,7 @@ import '../../global.css'
 export default function LoginSesion({ navigation }) {
   const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
   const colorValue = useSharedValue(0);
-  const textValue =  useSharedValue(0);
+  const textValue = useSharedValue(0);
 
 
   const backgroundColorStyle = useAnimatedStyle(() => {
@@ -20,19 +20,19 @@ export default function LoginSesion({ navigation }) {
     return { backgroundColor };
   });
 
-  const textColorStyle = useAnimatedStyle(() =>{
+  const textColorStyle = useAnimatedStyle(() => {
     const textColor = interpolateColor(
       textValue.value,
       [0, 1],
-      ['#000000', '#FFFFFF'] 
+      ['#000000', '#FFFFFF']
     );
-    return { color:textColor };
+    return { color: textColor };
   });
 
 
   useEffect(() => {
-    colorValue.value = withTiming(1, { duration: 150 }); 
-    textValue.value = withTiming (1, {duration:150});
+    colorValue.value = withTiming(1, { duration: 150 });
+    textValue.value = withTiming(1, { duration: 150 });
   }, []);
 
   return (
@@ -50,11 +50,17 @@ export default function LoginSesion({ navigation }) {
         </View>
 
         {/*Content*/}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+       
         <View className="gap-10 bg-white rounded-lg h-[350px] w-[385px] justify-center items-center shadow-md">
-          <View className="flex flex-row bg-gray-300 gap-10 rounded-lg w-[350px] h-[50px] justify-around  items-center" >
-            <Entypo name="mail" size={20} color="black" />
-            <TextInput className="w-[200px]" placeholder='youremail@example.com'></TextInput>
-          </View>
+          
+            <View className="flex flex-row bg-gray-300 gap-10 rounded-lg w-[350px] h-[50px] justify-around  items-center" >
+              <Entypo name="mail" size={20} color="black" />
+              <TextInput className="w-[200px]" placeholder='youremail@example.com'></TextInput>
+            </View>
+          
+
 
           <View className="flex flex-row bg-gray-300 gap-10 rounded-lg w-[350px] h-[50px] justify-around items-center">
             <MaterialIcons name="password" size={20} color="black" />
@@ -70,10 +76,12 @@ export default function LoginSesion({ navigation }) {
           </View>
         </View>
 
+        </TouchableWithoutFeedback>
+
         {/*Footer */}
         <View>
-          <TouchableOpacity onPress={()=> navigation.navigate('RegisterScreen')}>
-            <Text className="underline text-white">
+          <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+            <Text className="text-md font-bold text-white underline">
               Don't have an account? Register now!
             </Text>
           </TouchableOpacity>
