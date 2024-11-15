@@ -4,9 +4,9 @@ import "../global.css"
 
 const CardNew = ({ imageUrl, title, description }) => {
   return (
-    <View className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white">
+    <View className="max-w-sm rounded-lg shadow-sm bg-white">
     <Image
-      className="w-full h-48"
+      className="w-full h-48 rounded-t-lg"
       source={{ uri: imageUrl }}
       alt="Image"
     />

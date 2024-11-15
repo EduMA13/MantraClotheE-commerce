@@ -34,9 +34,9 @@ export default function Login({ navigation }) {
   }));
 
   const handleExpandAndNavigate = () => {
-    expandedHeight.value = withTiming(1000, { duration: 600 }, (finished) => {
+    expandedHeight.value = withTiming(1000, { duration: 1000 }, (finished) => {
       if (finished) {
-        runOnJS(navigation.navigate)('LoginScreen'); // Cambia 'NextScreen' por el nombre de la siguiente pantalla
+        runOnJS(navigation.navigate)('LoginScreen'); 
       }
     });
   };
@@ -49,6 +49,7 @@ export default function Login({ navigation }) {
     }, 3500);
     return () => clearInterval(interval);
   }, [index]);
+
 
   useEffect(() => {
     contentOpacity.value = 0;
@@ -89,9 +90,10 @@ export default function Login({ navigation }) {
      
 
       {/* Pie de página con botón (animación separada) */}
-      <Animated.View className="flex flex-col bg-white rounded-t-[45px] w-full items-center text-center justify-around shadow-md"
-        style={[footerStyle, { position: 'absolute', bottom:1 , height:200}]}>
+      <Animated.View className="flex flex-col bg-white  rounded-t-[45px] w-full items-center text-center justify-around shadow-md"
+        style={[footerStyle, { position: 'absolute', bottom:1 , height:200, backgroundColor:'white'}]}>
         <Text className="text-black text-2xl font-bold">Ready to buy?</Text>
+
         <Text className="text-black text-[15px] font-bold text-center">
           Click the next button to proceed to the next step
         </Text>

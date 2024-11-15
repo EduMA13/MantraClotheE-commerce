@@ -53,12 +53,9 @@ export default function RegisterSesion({ navigation }) {
         </View>
 
         {/* Body */}
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{ flex: 1 }}
-        >
+
           <View className="flex-1 items-center justify-center mt-5">
-            <View className="gap-5 bg-white rounded-lg flex-grow justify-center items-center shadow-md  px-5 py-5">
+            <View className="gap-5 bg-white rounded-lg  justify-center items-center shadow-md  px-5 py-5">
 
               <View className="flex-row bg-gray-300 rounded-lg w-full h-[50px] justify-around items-center">
                 <Feather name="user" size={20} color="black" />
@@ -116,7 +113,7 @@ export default function RegisterSesion({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
-        </KeyboardAvoidingView>
+
 
         {/* Footer */}
         <View className="items-center mb-5">

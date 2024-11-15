@@ -1,32 +1,45 @@
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './HomeScreen'; // Tu pantalla principal
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import HomeScreen from './HomeScreen'; 
 import FindStore from './FindStore';
 import ShoppingCart from './ShoppingCart';
-import "../../global.css"
+import "../../global.css";
 
 const Tab = createBottomTabNavigator();
 
 function MainMenu() {
   return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "#f62b56",
+          borderTopRightRadius: 20,
+          borderTopLeftRadius: 20,
+        },
+        // Define iconos y colores
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: {
-            backgroundColor: "#f62b56",
-            borderTopRightRadius: 20,
-            borderTopLeftRadius: 20,
-        
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
+          } else if (route.name === 'Shopping Cart') {
+            iconName = focused ? 'cart' : 'cart-outline';
           }
-        }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={FindStore} />
-        <Tab.Screen name="Shopping Cart" component={ShoppingCart} />
-      </Tab.Navigator>
 
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: '#FFFFFF', 
+        tabBarInactiveTintColor: '#FFFFFF', 
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Profile" component={FindStore} />
+      <Tab.Screen name="Shopping Cart" component={ShoppingCart} />
+    </Tab.Navigator>
   );
 }
 
