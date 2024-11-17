@@ -1,14 +1,20 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import "../global.css"
 
-const BrandsCards = ({imageUrl}) => {
+const BrandsCards = ({ imageUrl }) => {
     return (
-        <View className=" items-center">
-            <Image
-                source={{ uri: imageUrl }}
-                className="w-28 h-28 rounded-lg" />
-        </View>
+        <TouchableOpacity>
+            <View className="items-center">
+                <View className="w-24 h-24 bg-white shadow-md rounded-lg items-center justify-center">
+                    <Image
+                        source={{ uri: imageUrl }}
+                        className="w-20 h-20" />
+                </View>
+
+            </View>
+        </TouchableOpacity>
+
     );
 };
 
