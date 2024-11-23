@@ -7,7 +7,7 @@ import BrandsCards from '../../components/BrandsCards';
 import SearchBar from '../../components/SearchBar';
 import '../../global.css'
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
     const imageUrls = [
         'https://nikecompanyblog.wordpress.com/wp-content/uploads/2015/05/nike1.jpg',
         'https://abscents.com.mx/cdn/shop/products/GUCCI_71dc7fa3-43cb-4d9d-afe7-3c102344ece7.jpg?v=1711913492&width=1080',
@@ -85,7 +85,7 @@ export default function HomeScreen() {
                                 <View className="justify-center items-start p-10 gap-y-5">
                                     <Text className="text-lg font-bold w-[120px]">Best style at best prices</Text>
                                     <Text className="">Min. 25% off</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate('Items')}>
                                         <View className="bg-blue-500 p-5 rounded-md" >
                                             <Text className="text-white font-bold">Start Shooping!</Text>
                                         </View>

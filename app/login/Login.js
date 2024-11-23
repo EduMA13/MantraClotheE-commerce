@@ -34,7 +34,7 @@ export default function Login({ navigation }) {
   }));
 
   const handleExpandAndNavigate = () => {
-    expandedHeight.value = withTiming(1000, { duration: 1000 }, (finished) => {
+    expandedHeight.value = withTiming(1000, { duration: 500 }, (finished) => {
       if (finished) {
         runOnJS(navigation.navigate)('LoginScreen'); 
       }

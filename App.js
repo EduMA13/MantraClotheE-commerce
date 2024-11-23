@@ -9,6 +9,8 @@ import LoginSesion from './app/login/LoginSesion';
 import RegisterSesion from  './app/login/RegisterSesion';
 import LoginSuccess from './app/login/LoginSuccess';
 import MainMenu from './app/store/MainMenu';
+import PasswordRecovery from './app/password/PasswordRecovery';
+
 import "./global.css"
 
 const Stack = createStackNavigator();
@@ -76,14 +78,17 @@ function HomeScreen({ navigation }) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false,
+        gestureEnabled: false,
+       }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name ="LoginScreen" component={LoginSesion}
-        options={{animationEnabled:false}}/>
-        <Stack.Screen name="RegisterScreen" component={RegisterSesion}/>
+        options={{animation: 'slide_from_right'}}/>
+        <Stack.Screen name="RegisterScreen" component={RegisterSesion} options={{animation:'slide_from_left'}}/>
         <Stack.Screen name ="LoginSuccess" component={LoginSuccess}/>
         <Stack.Screen name="MainMenu" component={MainMenu}/>
+        <Stack.Screen name="Recovery" component={PasswordRecovery}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

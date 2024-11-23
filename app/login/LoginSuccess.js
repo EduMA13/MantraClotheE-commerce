@@ -17,7 +17,7 @@ export default function LoginSuccess({ navigation }) {
                     />
                 </View>
                 <View className="items-center">
-                    <Text className="text-xl font-bold text-center">Register succesfull!</Text>
+                    <Text className="text-xl font-bold text-center">Login succesfull!</Text>
                     <Text className="text-lg text-center font-semibold">Welcome to Mantra!</Text>
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('MainMenu')}>
