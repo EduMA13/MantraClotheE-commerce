@@ -65,7 +65,7 @@ export default function RegisterSesion({ navigation }) {
 
     try {
       // Envía los datos al backend o a la base de datos
-      const response = await fetch("http://192.168.1.33:3000/register", {
+      const response = await fetch("http://192.168.1.32:3000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

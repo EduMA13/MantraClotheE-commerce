@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 // Conexión a la base de datos
 const db = mysql.createConnection({
-  host: '127.0.0.1', // Cambia a la IP de tu servidor si es necesario
+  host: '127.0.0.1', 
   user: 'root',
   password: 'hola',
   database: 'register_info'
@@ -98,7 +98,8 @@ app.post('/reset-password', (req, res) => {
 app.get('/productos', (req, res) => {
   const { categoria, color, talla, precio_min, precio_max, palabra_clave } = req.query;
 
-  let query = 'SELECT * FROM productos WHERE 1=1';
+  let query = 'SELECT id, nombre, descripcion, precio, descuento, categoria, etiquetas, imagenes, colores, tallas, stock, portada FROM productos WHERE 1=1';
+
   if (categoria) query += ` AND categoria = '${categoria}'`;
   if (color) query += ` AND JSON_CONTAINS(colores, '"${color}"')`;
   if (talla) query += ` AND JSON_CONTAINS(tallas, '"${talla}"')`;
@@ -114,11 +115,27 @@ app.get('/productos', (req, res) => {
 
 app.get('/productos/:id', (req, res) => {
   const { id } = req.params;
-  db.query('SELECT * FROM productos WHERE id = ?', [id], (err, result) => {
-    if (err) return res.status(500).send(err);
-    res.json(result[0]);
+
+  db.query('SELECT * FROM productos WHERE id = ?', [id], (err, results) => {
+    if (err) return res.status(500).send('Error en el servidor');
+    if (results.length === 0) return res.status(404).send('Producto no encontrado');
+
+    const producto = results[0];
+
+    try {
+      // Parsear el JSON de colores y tallas
+      producto.colores = JSON.parse(producto.colores.replace(/^\$\[/, '[')); // Reemplaza `$[` con `[`
+      producto.tallas = JSON.parse(producto.tallas.replace(/^\$\[/, '['));   // Reemplaza `$[` con `[`
+    } catch (error) {
+      console.error('Error al parsear colores o tallas:', error);
+      producto.colores = [];
+      producto.tallas = [];
+    }
+
+    res.json(producto);
   });
 });
+
 
 const PORT = 3000;
 app.listen(PORT, () => {

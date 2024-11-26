@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextInput, View } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import "../global.css"
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
+    const [searchText, setSearchText] = useState('');
+
+    const handleSearch = (text) => {
+        setSearchText(text);
+        onSearch(text);
+    };
+
     return (
         <View className="justify-center items-center">
-            <View className="flex flex-row items-center w-[350px] gap-x-10 shadow-md rounded-lg bg-white h-14">
-                <FontAwesome className="ml-5" name="search" size={24} color="black" />
-                <TextInput placeholder="Search for any clothes" />
+            <View className="flex flex-row items-center w-[350px] shadow-md rounded-lg bg-white h-16 px-4">
+                <FontAwesome name="search" size={24} color="black" />
+                <TextInput
+                    className="ml-3 flex-1 text-base"
+                    placeholder="Search for any clothes"
+                    value={searchText}
+                    onChangeText={handleSearch}
+                />
             </View>
         </View>
     );
