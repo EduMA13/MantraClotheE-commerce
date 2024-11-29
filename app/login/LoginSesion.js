@@ -1,31 +1,33 @@
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Entypo from '@expo/vector-icons/Entypo';
+import { AuthContext } from '../../components/authContext';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, interpolateColor } from 'react-native-reanimated';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import '../../global.css'
 
 export default function LoginSesion({ navigation }) {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext); // Usa el contexto
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.1.32:3000/login', {
+      const response = await fetch('http://My.ip.here:3000/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mail, password }),
       });
 
       if (response.ok) {
-        navigation.navigate("LoginSuccess");
+        const userData = await response.json();
+        await login(userData); // Llama al método login del contexto
+        navigation.navigate('LoginSuccess'); 
       } else {
         Alert.alert('Error', 'Correo o contraseña incorrectos');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Alert.alert('Error', 'No se pudo conectar con el servidor');
     }
   };

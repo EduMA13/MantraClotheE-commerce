@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, ActivityIndicator, ScrollView, SafeAreaView, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import { CartContext } from '../../components/CartContext';
 
 export default function ItemScreen({ route }) {
+
     const navigation = useNavigation();
     const { productId } = route.params;
     const [product, setProduct] = useState(null);
@@ -14,11 +16,24 @@ export default function ItemScreen({ route }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [isZoomModalVisible, setIsZoomModalVisible] = useState(false); // State for the zoom modal
+    const [isZoomModalVisible, setIsZoomModalVisible] = useState(false);
+
+    const { addToCart } = useContext(CartContext);
+    const handleAddToCart = () => {
+        const productToAdd = {
+            id: product.id,
+            nombre: product.nombre,
+            precio: product.precio,
+            color: selectedColor,
+            talla: selectedSize,
+            imagen: selectedImage,
+        };
+        addToCart(productToAdd);
+    };
 
     const fetchProduct = async () => {
         try {
-            const response = await fetch(`http://192.168.1.32:3000/productos/${productId}`);
+            const response = await fetch(`http://My.ip.here:3000/productos/${productId}`);
             const data = await response.json();
             const firstImage = JSON.parse(data.imagenes);
 
@@ -105,9 +120,8 @@ export default function ItemScreen({ route }) {
                                 {product.colores.map((color) => (
                                     <TouchableOpacity key={color} onPress={() => handleColorChange(color)}>
                                         <View
-                                            className={`w-10 h-10 rounded-full border-2 ${
-                                                selectedColor === color ? 'border-[#f52c56]' : 'border-gray-300'
-                                            }`}
+                                            className={`w-10 h-10 rounded-full border-2 ${selectedColor === color ? 'border-[#f52c56]' : 'border-gray-300'
+                                                }`}
                                             style={{ backgroundColor: color }}
                                         />
                                     </TouchableOpacity>
@@ -124,9 +138,8 @@ export default function ItemScreen({ route }) {
                                 renderItem={({ item }) => (
                                     <TouchableOpacity onPress={() => setSelectedSize(item)}>
                                         <View
-                                            className={`px-4 py-2 border-2 mr-2 ${
-                                                selectedSize === item ? 'border-[#f52c56]' : 'border-gray-300'
-                                            } rounded-lg`}
+                                            className={`px-4 py-2 border-2 mr-2 ${selectedSize === item ? 'border-[#f52c56]' : 'border-gray-300'
+                                                } rounded-lg`}
                                         >
                                             <Text className={`${selectedSize === item ? 'font-bold' : ''}`}>{item}</Text>
                                         </View>
@@ -145,12 +158,11 @@ export default function ItemScreen({ route }) {
                     </View>
                 </ScrollView>
 
-                {/* Purchase Button */}
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleAddToCart}>
                     <View className="absolute bottom-0 left-[20px] right-[40px] w-96 h-16 mb-6 ml-4 rounded-lg shadow-md">
                         <View className="flex justify-center items-center bg-[#f52c56] rounded-lg h-16">
-                            <Text onPress={paymentItem} className="text-white font-semibold">
-                                $ {product.precio} USD
+                            <Text className="text-white font-semibold">
+                                Agregar al carrito - $ {product.precio} USD
                             </Text>
                         </View>
                     </View>

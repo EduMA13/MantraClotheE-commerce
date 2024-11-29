@@ -49,7 +49,7 @@ export default function PasswordRecovery({ navigation }) {
     }
 
     try {
-      const response = await fetch('http://192.168.1.33:3000/reset-password', {
+      const response = await fetch('http://My.ip.here:3000/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, securityAnswer, newPassword }),

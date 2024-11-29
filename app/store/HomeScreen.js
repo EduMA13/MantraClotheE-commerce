@@ -1,5 +1,6 @@
 import { View, Text, SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import CardNew from '../../components/CardNew';
 import ClotheNav from '../../components/ClotheNav';
@@ -17,10 +18,18 @@ export default function HomeScreen({ navigation }) {
     return (
         <SafeAreaView className="flex-1">
             <ScrollView>
-                <View className="flex-1">
+                <View className="flex-1 ">
 
-                    <View className="mt-5 mb-5">
+                    <View className=" flex flex-row justify-between items-center mt-5 mb-5">
                         <Text className="text-3xl font-bold ml-[23px]">Categories</Text>
+                        <TouchableOpacity onPress={()=> navigation.navigate('Profile')}>
+                            <View className=" mr-[23px]">
+                                <View className=" rounded-full bg-white p-5">
+                                    <AntDesign name="user" size={24} color="black" />
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+
                     </View>
 
                     {/* ScrollView horizontal para categorías */}

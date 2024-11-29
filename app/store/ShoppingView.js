@@ -10,7 +10,7 @@ export default function ShoppingView() {
 
     const fetchProductos = async () => {
         try {
-            const response = await fetch('http://192.168.1.32:3000/productos');
+            const response = await fetch('http://My.ip.here:3000/productos');
             const data = await response.json();
             setProductos(data);
             setFilteredProductos(data);
@@ -74,9 +74,6 @@ export default function ShoppingView() {
         }
     };
     
-    
-
-
     const renderItem = ({ item }) => {
         const tallas = JSON.parse(item.tallas); // Convertir JSON a array
 
@@ -94,7 +91,6 @@ export default function ShoppingView() {
                         <Text className="text-green-500 text-base font-semibold mt-1">${item.precio}</Text>
                     </View>
 
-                    {/* <Text>{tallas.join(', ')}</Text> Mostrar las tallas en un formato legible */}
                 </View>
             </TouchableOpacity>
 
@@ -118,7 +114,7 @@ export default function ShoppingView() {
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2} // Muestra 2 columnas
                 contentContainerStyle={{ paddingHorizontal: 16, justifyContent: 'space-between', alignItems: 'center' }}
-                className="gap-4" // Esto puede ser ajustado si lo deseas
+                className="gap-4"
             />
         </SafeAreaView>
     );

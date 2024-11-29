@@ -6,7 +6,10 @@ module.exports = {
     "./components/**/*.{js,jsx,ts,tsx}",
     "./app/login/**/*.{js,jsx,ts,tsx}",
     "./app/password/**/*.{js,jsx,ts,tsx}",
-    "./app/store/**/*.{js,jsx,ts,tsx}",],
+    "./app/store/**/*.{js,jsx,ts,tsx}",
+    "./app/password/**/*.{js,jsx,ts,tsx}",
+    "./app/payment/**/*.{js,jsx,ts,tsx}",
+    "./app/user/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
     extend: {},

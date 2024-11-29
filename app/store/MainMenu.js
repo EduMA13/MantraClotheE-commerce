@@ -1,12 +1,17 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import HomeScreen from './HomeScreen'; 
+import HomeScreen from './HomeScreen';
 import FindStore from './FindStore';
 import ShoppingCart from './ShoppingCart';
 import ShoppingView from './ShoppingView';
 import ItemScreen from './ItemView';
+import InfoCheck from '../payment/InfoCheck';
+import ProfileSettings from '../user/ProfileSettings';
 import { createStackNavigator } from '@react-navigation/stack';
+import { StripeProvider } from "@stripe/stripe-react-native";
+
+
 import "../../global.css";
 
 const Tab = createBottomTabNavigator();
@@ -51,11 +56,19 @@ function MainTabs() {
 
 function MainMenu() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MainTabs" component={MainTabs} />
-      <Stack.Screen name="ItemScreen" component={ItemScreen} />
-      
-    </Stack.Navigator>
+    <StripeProvider publishableKey='pk_test'>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="MainTabs" component={MainTabs} options={{
+          animation: 'slide_from_left',
+          gestureEnabled: false
+        }} />
+        <Stack.Screen name="ItemScreen" component={ItemScreen} />
+        <Stack.Screen name="InfoCheck" component={InfoCheck} />
+        <Stack.Screen name="Profile" component={ProfileSettings}/>
+
+      </Stack.Navigator>
+    </StripeProvider>
+
   );
 }
 

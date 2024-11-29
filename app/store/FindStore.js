@@ -38,14 +38,14 @@ export default function FindStore() {
 
   return (
     <SafeAreaView className="flex-1 justify-between items-center ">
-      <View>
-        <Text className="text-xl font-bold text-center w-[200px]">Find your nearest MANTRA store</Text>
+      <View className="bg-[#f52c56] w-full justify-center items-center rounded-b-2xl">
+        <Text className="text-xl font-bold text-center w-[200px] text-white">Find your nearest MANTRA store</Text>
       </View>
 
       <View className="mb-5">
       {location ? (
         <MapView
-          style={{ width: 700, height: 700 }}
+          style={{ width: 900, height: 900 }}
           initialRegion={location}
           showsUserLocation={true}
           className="flex-1"

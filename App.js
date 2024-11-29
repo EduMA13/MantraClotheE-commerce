@@ -1,15 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './app/login/Login';
 import LoginSesion from './app/login/LoginSesion';
-import RegisterSesion from  './app/login/RegisterSesion';
+import RegisterSesion from './app/login/RegisterSesion';
 import LoginSuccess from './app/login/LoginSuccess';
 import MainMenu from './app/store/MainMenu';
 import PasswordRecovery from './app/password/PasswordRecovery';
+import { CartProvider } from './components/CartContext';
+import { AuthProvider } from './components/authContext';
 
 import "./global.css"
 
@@ -35,6 +38,16 @@ function HomeScreen({ navigation }) {
     opacity: buttonOpacity.value,
   }));
 
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const user = await AsyncStorage.getItem('user');
+      if (user) {
+        navigationRef.current?.navigate('MainTabs');
+      }
+    };
+    checkLoginStatus();
+  }, []);
+
   return (
     <SafeAreaView className="flex-1 justify-between gap-5 bg-[#f52c56]">
       {/* Header */}
@@ -49,7 +62,7 @@ function HomeScreen({ navigation }) {
         <Text className="text-white text-2xl font-semibold">
           Welcome to Mantra
         </Text>
-        <Text className="text-white text-2xl w-72 text-center font-semibold"> 
+        <Text className="text-white text-2xl w-72 text-center font-semibold">
           Your one-stop-shop for all your shopping needs.
         </Text>
       </Animated.View>
@@ -70,26 +83,33 @@ function HomeScreen({ navigation }) {
           </View>
         </TouchableOpacity>
       </Animated.View>
-      
+
     </SafeAreaView>
   );
 }
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false,
-        gestureEnabled: false,
-       }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name ="LoginScreen" component={LoginSesion}
-        options={{animation: 'slide_from_right'}}/>
-        <Stack.Screen name="RegisterScreen" component={RegisterSesion} options={{animation:'slide_from_left'}}/>
-        <Stack.Screen name ="LoginSuccess" component={LoginSuccess}/>
-        <Stack.Screen name="MainMenu" component={MainMenu}/>
-        <Stack.Screen name="Recovery" component={PasswordRecovery}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <CartProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="LoginScreen" component={LoginSesion}
+              options={{ animation: 'slide_from_right' }} />
+            <Stack.Screen name="RegisterScreen" component={RegisterSesion} options={{ animation: 'slide_from_left' }} />
+            <Stack.Screen name="LoginSuccess" component={LoginSuccess} />
+            <Stack.Screen name="MainMenu" component={MainMenu} />
+            <Stack.Screen name="Recovery" component={PasswordRecovery} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </CartProvider>
+    </AuthProvider>
+
+
   );
 }
